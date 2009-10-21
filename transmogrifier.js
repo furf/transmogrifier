@@ -1,5 +1,6 @@
 /**
  * Transmogrifier
+ * @author Dave Furfero
  */
 function Transmogrifier (map) {
 
