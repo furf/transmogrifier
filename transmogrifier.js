@@ -1,3 +1,6 @@
+/**
+ * Transmogrifier
+ */
 function Transmogrifier (map) {
 
   var EMPTY  = '',
