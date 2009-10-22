@@ -82,7 +82,6 @@ function Transmogrifier (map) {
 Transmogrifier.prototype.many = function(data) {
 
   if (!(data instanceof Array)) {
-    alert(1)
     return data;
   }
 
