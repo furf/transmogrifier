@@ -80,12 +80,10 @@ function Transmogrifier (map) {
 }
 
 Transmogrifier.prototype.many = function(data) {
-
-  if (!(data instanceof Array)) {
-    return data;
-  }
-
   var i, n, arr = [];
+  if (!(data instanceof Array)) {
+    data = [data];
+  }
   for (i = 0, n = data.length; i < n; ++i) {
     arr.push(this.one(data[i]));
   }
