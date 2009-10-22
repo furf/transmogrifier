@@ -75,14 +75,14 @@ function Transmogrifier (map) {
     return src.join(EMPTY);
   }
 
-  this.transmogrify = new Function(SOURCE, makeSource(map));
+  this.one = new Function(SOURCE, makeSource(map));
   this.modifiers = modifiers;
 }
 
-Transmogrifier.prototype.transmogrifyMany = function(data) {
+Transmogrifier.prototype.many = function(data) {
   var i, n, arr = [];
   for (i = 0, n = data.length; i < n; ++i) {
-    arr.push(this.transmogrify(data[i]));
+    arr.push(this.one(data[i]));
   }
   return arr;
 };
