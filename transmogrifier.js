@@ -91,9 +91,9 @@ function Transmogrifier (map) {
           // Render dot-delimited property as gated assignment
           } else {
 
-            props = parts = '';
-            
             /**
+             * Optimize properties (remove brackets/quotes where unnecessary)
+             *
              * 0 = match
              * 1 = property (dot-notation)
              * 2 = quote
@@ -101,9 +101,9 @@ function Transmogrifier (map) {
              * 4 = index (bracket-notation)
              * 5 = property (bracket-notation, dirty)
              */
-            while ((p = chunker.exec(val)) !== null) {
+            props = parts = '';
 
-              // Optimize properties (remove brackets/quotes where unnecessary)
+            while ((p = chunker.exec(val)) !== null) {
               props += p[1] || p[3] && '.' + p[3] || '[' + (p[4] || '"' + p[5] + '"') + ']';
 
               // Join gated assignment
