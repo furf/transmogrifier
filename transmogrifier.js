@@ -38,10 +38,9 @@
  */
 function Transmogrifier (map) {
 
-  var arrayIndexRegExp    = /^\d+$/,
-      chunker             = /(\.?[a-zA-Z_$][\w$]*)|(?:(?:\[(["']?))(?:([a-zA-Z_$][\w$]*)|(\d+)|([^"']+))(?:\2\]))/g,
-      dials               = [],
-      toString            = Object.prototype.toString;
+  var chunker     = /(\.?[a-zA-Z_$][\w$]*)|(?:(?:\[(["']?))(?:([a-zA-Z_$][\w$]*)|(\d+)|([^"']+))(?:\2\]))/g,
+      dials       = [],
+      toString    = Object.prototype.toString;
 
   function makeSource (map /*, ns */) {
 
@@ -66,7 +65,7 @@ function Transmogrifier (map) {
 
         // Render property as complete path for recursion and assignment
         // (w/ array index correction)
-        prop = ns + (arrayIndexRegExp.test(prop) ? '[' + prop + ']' : '.' + prop);
+        prop = ns + (isNaN(prop) ? '.' + prop : '[' + prop + ']');
 
         // Recurse nested objects
         if (typeof val === 'object') {
@@ -91,6 +90,11 @@ function Transmogrifier (map) {
           // Render dot-delimited property as gated assignment
           } else {
 
+            // Allow use of numeric index for array transmogrification
+            if (!isNaN(val)) {
+              val = '[' + val + ']';
+            }
+            
             /**
              * Optimize properties (remove brackets/quotes where unnecessary)
              *
@@ -107,7 +111,7 @@ function Transmogrifier (map) {
               props += p[1] || p[3] && '.' + p[3] || '[' + (p[4] || '"' + p[5] + '"') + ']';
 
               // Join gated assignment
-              parts += '&&i.' + props;
+              parts += '&&i' + ((props.charAt(0) !== '[') ? '.' : '') + props;
             }
 
             // Render right-hand assignment by property
@@ -136,3 +140,5 @@ Transmogrifier.prototype = {
     return arr;
   }
 };
+
+
