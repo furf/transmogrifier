@@ -45,17 +45,13 @@ function Transmogrifier (map) {
   this._ = {};
   
   function makeSource (map /*, ns */) {
-    var ns   = arguments[1] || 'o',
-        type = (toString.call(map) === '[object Array]') ? '[]' : '{}',
-        src,
+    var ns  = arguments[1] || 'o',
+        src = ns + '=' + ((toString.call(map) === '[object Array]') ? '[]' : '{}') + ';',
         prop,
         val,
         props,
         parts,
         p;
-
-    // Render namespace
-    src = ns + '=' + type + ';';
 
     // Iterate mapped properties
     for (prop in map) {
