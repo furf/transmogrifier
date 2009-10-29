@@ -38,12 +38,13 @@
  */
 function Transmogrifier (map) {
 
-  var chunker     = /(\.?[a-zA-Z_$][\w$]*)|(?:(?:\[(["']?))(?:([a-zA-Z_$][\w$]*)|(\d+)|([^"']+))(?:\2\]))/g,
-      dials       = [],
-      toString    = Object.prototype.toString;
+  var chunker  = /(\.?[a-zA-Z_$][\w$]*)|(?:(?:\[(["']?))(?:([a-zA-Z_$][\w$]*)|(\d+)|([^"']+))(?:\2\]))/g,
+      toString = Object.prototype.toString;
 
+  // Modifiers
+  this._ = {};
+  
   function makeSource (map /*, ns */) {
-
     var ns   = arguments[1] || 'o',
         type = (toString.call(map) === '[object Array]') ? '[]' : '{}',
         src,
@@ -70,7 +71,8 @@ function Transmogrifier (map) {
         // Recurse nested objects
         if (typeof val === 'object') {
           
-          src += makeSource(val, prop);
+          // Maintain context of instance
+          src += makeSource.call(this, val, prop);
 
         // Render dot-delimited properties and modifiers
         } else {
@@ -82,10 +84,10 @@ function Transmogrifier (map) {
           if (toString.call(val) === '[object Function]') {
 
             // Cache modifier, referenceable by property
-            dials[prop] = val;
+            this._[prop] = val;
             
             // Render right-hand assignment by function
-            src += 'this.dials["' + prop + '"](i)' + ';';
+            src += 'this._["' + prop + '"](i);';
 
           // Render dot-delimited property as gated assignment
           } else {
@@ -125,9 +127,9 @@ function Transmogrifier (map) {
     return (ns === 'o') ? 'var ' + src + 'return o;' : src;
   }
 
-  // Create new function from source and attach dials array
-  this.zap   = new Function('i', makeSource(map));
-  this.dials = dials;
+  // Create new function from source
+  // Call in context of instance to maintain reference to modifiers array
+  this.zap = new Function('i', makeSource.call(this, map));
 }
 
 Transmogrifier.prototype = {
