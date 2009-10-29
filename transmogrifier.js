@@ -93,6 +93,8 @@ function Transmogrifier (map) {
               val = '[' + val + ']';
             }
             
+            props = parts = '';
+
             /**
              * Optimize properties (remove brackets/quotes where unnecessary)
              *
@@ -103,8 +105,6 @@ function Transmogrifier (map) {
              * 4 = index (bracket-notation)
              * 5 = property (bracket-notation, dirty)
              */
-            props = parts = '';
-
             while ((p = chunker.exec(val)) !== null) {
               props += p[1] || p[3] && '.' + p[3] || '[' + (p[4] || '"' + p[5] + '"') + ']';
 
