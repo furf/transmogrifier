@@ -37,22 +37,20 @@
     $(function() {
       
       var $form   = $('#transmogriform'),
-      
-          $map    = $form.find('#map').val(JSON.stringify({
-            firstName: 'first_name',
-            lastName:  'last_name'
-          })),
-          
-          $input  = $form.find('#input').val(JSON.stringify({
-            first_name: 'dave',
-            last_name:  'furf'
-          })),
-          
-          $output = $form.find('#output'),
-          
-          $buttons = $form.find('[name=transmogrify]');
 
-      $buttons.click(function(e) {
+      $map = $form.find('#map').val(JSON.stringify({
+        firstName: 'first_name',
+        lastName:  'last_name'
+      })),
+
+      $input = $form.find('#input').val(JSON.stringify({
+        first_name: 'dave',
+        last_name:  'furf'
+      })),
+
+      $output = $form.find('#output'),
+
+      $buttons = $form.find('[name=transmogrify]').click(function(e) {
 
         e.preventDefault();
 
@@ -62,12 +60,9 @@
             input    = JSON.parse(inputStr),
             morph    = new Transmogrifier(map),
             output   = JSON.stringify(morph[this.value](input));
-
+        
         $output.val(output);
       });
-          
-      
-      
     });
 
   	</script>
@@ -107,8 +102,8 @@
         </fieldset>
       
         <p>
-          <input type="submit" name="transmogrify" value="one"/>
-          <input type="submit" name="transmogrify" value="many"/>
+          <input type="submit" name="transmogrify" value="zap"/>
+          <input type="submit" name="transmogrify" value="nuke"/>
         </p>
 
       </fieldset>

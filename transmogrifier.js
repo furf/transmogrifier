@@ -50,7 +50,7 @@ function Transmogrifier (map) {
         prop,
         val,
         props,
-        parts,
+        parts = [],
         p;
 
     // Iterate mapped properties
@@ -93,7 +93,9 @@ function Transmogrifier (map) {
               val = '[' + val + ']';
             }
             
-            props = parts = '';
+            // Reset props and parts
+            props = '';
+            parts.length = 0;
 
             /**
              * Optimize properties (remove brackets/quotes where unnecessary)
@@ -107,13 +109,11 @@ function Transmogrifier (map) {
              */
             while ((p = chunker.exec(val)) !== null) {
               props += p[1] || p[3] && '.' + p[3] || '[' + (p[4] || '"' + p[5] + '"') + ']';
-
-              // Join gated assignment
-              parts += '&&i' + ((props.charAt(0) !== '[') ? '.' : '') + props;
+              parts.push('i' + ((props.charAt(0) !== '[') ? '.' : '') + props);
             }
 
             // Render right-hand assignment by property
-            src += parts.substr(2) + ';';
+            src += parts.join('&&') + ';';
           }
         }
       }
@@ -138,5 +138,3 @@ Transmogrifier.prototype = {
     return arr;
   }
 };
-
-
