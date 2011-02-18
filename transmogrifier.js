@@ -83,7 +83,7 @@ function Transmogrifier (map) {
             this._[prop] = val;
             
             // Render right-hand assignment by function
-            src += 'this._["' + prop + '"](i);';
+            src += 'this._["' + prop + '"](i,o);';
 
           // Render dot-delimited property as gated assignment
           } else {
@@ -126,6 +126,7 @@ function Transmogrifier (map) {
   // Create new function from source
   // Call in context of instance to maintain reference to modifiers array
   this.zap = new Function('i', makeSource.call(this, map));
+  console.log(this.zap.toString());
 }
 
 Transmogrifier.prototype = {
