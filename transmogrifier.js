@@ -9,7 +9,7 @@
                      NZZZZN+      =NNZZZZNNZ  $NNZNNZNNZZZNZ 
                     NZZZZNN     ~:NNZZZNZZNN  INNZZZZZZZNNZ  
                    $NZZNNNZNNNNNZZNNZZZZZZZN: INNZNNNNNN+    
-                  $NNZNNHTTP://BIT.LY/Z1n2dZN ?NNZNZ         
+                  $NNZHTTP://BIT.LY/2ucKTq0ZN ?NNZNZ         
                   NNZZZZZZZZZZNN~NNZNNNNZZZZN?=NNZN$         
                 ~NNZZZZZZZZZZZNNZNZNNI ZNZZZNNINNZNZ
                ~NNNNNNNNNNNZZZZNNZZNNI INNZZZNNNNZNN=
